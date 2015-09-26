@@ -20,7 +20,8 @@ var app = app || {};
     getInitialState: function () {
       return {
         nowShowing: app.ALL_TODOS,
-        editing: null
+        editing: null,
+        inputValue: "",
       };
     },
 
@@ -51,11 +52,11 @@ var app = app || {};
 
       event.preventDefault();
 
-      var val = React.findDOMNode(this.refs.newField).value.trim();
+      // var val = React.findDOMNode(this.refs.newField).value.trim();
 
-      if (val) {
-        this.props.model.addTodo(val);
-        React.findDOMNode(this.refs.newField).value = '';
+      if (this.state.inputValue && this.state.inputValue.length > 0) {
+        this.props.model.addTodo(this.state.inputValue);
+        this.setState({inputValue: ""});
       }
     },
 
@@ -87,6 +88,9 @@ var app = app || {};
 
     clearCompleted: function () {
       this.props.model.clearCompleted();
+    },
+    handleChange: function(event) {
+      this.setState({inputValue: event.target.value});
     },
 
     render: function () {
@@ -161,8 +165,9 @@ var app = app || {};
               className="new-todo"
               placeholder="What needs to be done?"
               onKeyDown={this.handleNewTodoKeyDown}
+              onChange={this.handleChange}
               autoFocus={true}
-            />
+              value={this.state.inputValue} />
           </header>
           {main}
           {footer}
