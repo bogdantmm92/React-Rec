@@ -63,7 +63,7 @@ var app = app || {};
     },
 
     render: function() {
-      var content = true ? this.renderDev() : this.renderNormal();
+      var content = app.ReactRec.DEV ? this.renderDev() : this.renderNormal();
       return content;
     }
   });

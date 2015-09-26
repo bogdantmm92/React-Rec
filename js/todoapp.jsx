@@ -29,7 +29,7 @@ var app = app || {};
       app.ReactRec.init();
     },
     componentDidUpdate: function(prevProps, prevState) {
-      var snapshotState = CTree.serialize(this);
+      var snapshotState = window.rct.serialize(this);
       app.ReactRec.saveState(snapshotState);
     },
     // Needed for sdk ---------
