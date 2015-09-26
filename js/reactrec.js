@@ -17,13 +17,14 @@ var app = app || {};
       !this.DEV && this.sessionRef.push(JSON.stringify(state));
     },
 
-    loadSession: function(sessionId) {
+    loadSession: function(sessionId, cb) {
       var sessionRef = new Firebase('https://react-rec.firebaseio.com/sessions').child(sessionId);
       var statesList = this.statesList = [];
       sessionRef.on("value", (snap) => {
         snap.forEach(function(sessionSnap) {
           statesList.push(sessionSnap.val());
-       });
+        });
+        cb(statesList);
       });
     },
 
