@@ -21,12 +21,16 @@ var app = app || {};
             this.interval = setInterval(this.tick, 1000);
             var sessions = []
             var that = this;
+            var once = true;
             app.ReactRec.sessionsRef.on("value", (snap) => {
+              if (once) {
+                once = false;
                 snap.forEach(function(sessionSnap) {
                     sessions.push(sessionSnap.key());
                 });
                 //  that.setState({sessions: sessions.slice(sessions.length - 1 - 20)});
                 that.setState({sessions: sessions});
+              }
             });
         },
         loadSession: function (sessionId) {
