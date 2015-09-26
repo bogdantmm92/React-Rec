@@ -24,6 +24,16 @@ var app = app || {};
       };
     },
 
+    // Needed for sdk ---------
+    componentWillMount: function() {
+      app.ReactRec.init();
+    },
+    componentDidUpdate: function(prevProps, prevState) {
+      var snapshotState = CTree.serialize(this);
+      app.ReactRec.saveState(snapshotState);
+    },
+    // Needed for sdk ---------
+
     componentDidMount: function () {
       var setState = this.setState;
       var router = Router({
