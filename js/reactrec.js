@@ -6,11 +6,11 @@ var app = app || {};
   app.ReactRec = {
     DEV: true,
     sessionRef: null,
-
+    sessionsRef: null,
     statesList: [],
     init: function() {
-      var sessionsRef = new Firebase('https://react-rec.firebaseio.com/sessions');
-      this.sessionRef = sessionsRef.push();
+      this.sessionsRef = new Firebase('https://react-rec.firebaseio.com/sessions');
+      this.sessionRef = this.sessionsRef.push();
     },
 
     saveState: function(state) {

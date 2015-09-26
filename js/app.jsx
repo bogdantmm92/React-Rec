@@ -12,11 +12,23 @@ var app = app || {};
     getInitialState: function() {
       return {
         seekTime: -1,
+				sessions: [],
       };
     },
 
-    loadSession: function() {
-      var sessionId = this.refs.sessionInput.getDOMNode().value;
+		componentDidMount: function() {
+      var sessions = []
+			var that = this;
+      app.ReactRec.sessionsRef.on("value", (snap) => {
+        snap.forEach(function(sessionSnap) {
+          sessions.push(sessionSnap.key());
+       });
+			//  that.setState({sessions: sessions.slice(sessions.length - 1 - 20)});
+			 that.setState({sessions: sessions});
+      });
+		},
+    loadSession: function(sessionId) {
+      // var sessionId = this.refs.sessionInput.getDOMNode().value;
       app.ReactRec.loadSession(sessionId);
 
       this.setState({seekTime: -1});
@@ -44,11 +56,23 @@ var app = app || {};
       }
     },
 
+		renderSession: function(data) {
+			return (
+				<li onClick={() => this.loadSession(data)}><a href="#">{data}</a></li>
+			);
+		},
     renderReactRec: function() {
       return (
-        <div>
-          <input type="text" ref="sessionInput" />
-          <span onClick={() => this.loadSession() }>Load session</span>
+        <div className="controls">
+					<div className="dropup">
+						<button className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						  Choose session
+						  <span className="caret"></span>
+						</button>
+						<ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
+							{ this.state.sessions.map((data) => this.renderSession(data)) }
+						</ul>
+					</div>
           <input type="text" ref="timeInput"/>
           <span onClick={() => this.goToTime() }>Go to time</span>
         </div>
