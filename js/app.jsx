@@ -16,14 +16,14 @@ var app = app || {};
     },
 
     loadSession: function() {
-      var sessionId = this.refs.sessionInput.value;
+      var sessionId = this.refs.sessionInput.getDOMNode().value;
       app.ReactRec.loadSession(sessionId);
 
       this.setState({seekTime: -1});
     },
 
     goToTime: function() {
-      var seekTime = parseInt(this.refs.timeInput.value);
+      var seekTime = parseInt(this.refs.timeInput.getDOMNode().value);
       this.setState({seekTime: seekTime});
     },
 
@@ -36,12 +36,12 @@ var app = app || {};
       );
     },
 
-    // componentDidUpdate() {
-    //   if (ReactRec.DEV) {
-    //     // var stateAtTime = ReactRec.getStateAtTime(this.state.seekTime);
-    //     // ComponenTree.injectState(this.refs.todo, stateInTime);
-    //   }
-    // }
+    componentDidUpdate() {
+      if (app.ReactRec.DEV) {
+        var stateAtTime = app.ReactRec.getStateAtTime(this.state.seekTime);
+        window.rct.injectState(this.refs.todo, JSON.parse(stateAtTime));
+      }
+    },
 
     renderReactRec: function() {
       return (
