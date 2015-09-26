@@ -90,20 +90,19 @@ var app = app || {};
     renderReactRec: function() {
     return (
         <div className="controls">
-        <div className="dropup">
-        <button className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-        Choose session
-        <span className="caret"></span>
-        </button>
-        <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
-        { this.state.sessions.map((data) => this.renderSession(data)) }
-        </ul>
-        </div>
-        <br/>
-        <input type="range" data-slider-min="0" data-slider-max={this.state.states.length} data-slider-step="1"
+				<button className="playButton" onClick={() => this.togglePlay() }>{this.state.playing ? "Pause" : "Play"}</button>
+        <input className="slider" type="range" data-slider-min="0" data-slider-max={this.state.states.length} data-slider-step="1"
                value={this.state.seekTime} onChange={this.onSliderChange}/>
-        <span onClick={() => this.togglePlay() }>{this.state.playing ? "Pause" : "Play"}</span>
-    </div>
+						 <div className="dropup sessionChooser">
+	        <button className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+	        Choose session
+	        <span className="caret"></span>
+	        </button>
+	        <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
+	        { this.state.sessions.map((data) => this.renderSession(data)) }
+	        </ul>
+        </div>
+    	</div>
     );
     },
 
