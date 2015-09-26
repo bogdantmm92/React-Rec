@@ -37,9 +37,10 @@ var app = app || {};
     },
 
     componentDidUpdate() {
-      if (app.ReactRec.DEV) {
-        var stateAtTime = app.ReactRec.getStateAtTime(this.state.seekTime);
-        window.rct.injectState(this.refs.todo, JSON.parse(stateAtTime));
+      var stateAtTime = app.ReactRec.getStateAtTime(this.state.seekTime);
+      if (app.ReactRec.DEV && stateAtTime) {
+        stateAtTime = JSON.parse(stateAtTime);
+        window.rct.injectState(this.refs.todo, stateAtTime.state);
       }
     },
 
@@ -55,9 +56,17 @@ var app = app || {};
     },
 
     renderNormal: function() {
+      var model = this.props.model;
+      var stateAtTime = app.ReactRec.getStateAtTime(this.state.seekTime);
+
+      if (app.ReactRec.DEV && stateAtTime) {
+        stateAtTime = JSON.parse(stateAtTime);
+        model = stateAtTime.model;
+      }
+
       return (
         <div>
-          <app.TodoApp model={this.props.model} ref="todo" />
+          <app.TodoApp model={model} ref="todo" />
         </div>
       );
     },

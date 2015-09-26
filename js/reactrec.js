@@ -4,7 +4,7 @@ var app = app || {};
   'use strict';
 
   app.ReactRec = {
-    DEV: true,
+    DEV: false,
     sessionRef: null,
 
     statesList: [],
