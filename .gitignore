@@ -1,7 +1,12 @@
-# Include your project-specific ignores in this file
-# Read about how to use .gitignore: https://help.github.com/articles/ignoring-files
+node_modules/director
+!node_modules/director/build/director.js
 
-build
-node_modules
-ncp-debug.log
-npm-debug.log
+node_modules/react
+!node_modules/react/dist/react-with-addons.js
+!node_modules/react/dist/JSXTransformer.js
+node_modules/todomvc-app-css
+!node_modules/todomvc-app-css/index.css
+
+node_modules/todomvc-common
+!node_modules/todomvc-common/base.css
+!node_modules/todomvc-common/base.js
